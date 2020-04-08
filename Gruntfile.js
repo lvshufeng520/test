@@ -2,7 +2,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     htmlmin: {
       options: {
-	removeComments:true,
+	      removeComments:true,
         collapseWhitespace: true
       },
       files: {
@@ -11,11 +11,30 @@ module.exports = function (grunt) {
       }
     },
     cssmin:{
-      'dist/bundle.min.css': 'dist/bundle.css'
+      options: {
+        removeComments:true,
+        collapseWhitespace: true
+      },
+      files: [{
+        expand: true,
+        cwd: 'css',
+        src: ['**/*.css', '!**/*.min.css'],
+        dest: 'dist/css'
+      }]
     },
     uglify:{
-      'dist/bundle.min.js': 'dist/bundle.js'
-      }
+      options: {
+        removeComments:true,
+        collapseWhitespace: true
+      },
+      files: [{
+        expand: true,
+        cwd: 'js',
+        src: ['**/*.js', '!**/*.min.js'],
+        dest: 'dist/js'
+      }]
+      
+    }
     
   });
 
@@ -25,3 +44,4 @@ module.exports = function (grunt) {
 
   grunt.registerTask('minify', ['htmlmin','cssmin','uglify']); 
 };
+
